@@ -57,6 +57,7 @@ public class AlarmAlertFullScreen extends Activity {
     private int mVolumeBehavior;
     boolean mFullscreenStyle;
     private int mFlipAction;
+	private boolean mMathModule;
     SensorEventListener mOrientationListener;
 
     // Receives the ALARM_KILLED action from the AlarmKlaxon,
@@ -97,6 +98,11 @@ public class AlarmAlertFullScreen extends Activity {
                         DEFAULT_FLIP_ACTION);
         Log.v("flipaction = " + flipAction);
         mFlipAction = Integer.parseInt(flipAction);
+		
+		mMathModule = PreferenceManager
+		.getDefaultSharedPreferences(this)
+				.getBoolean(SettingsActivity.KEY_MATH_MODULE,
+						DEFAULT_MATH_VALUE);
 
         final Window win = getWindow();
         win.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
@@ -220,13 +226,20 @@ public class AlarmAlertFullScreen extends Activity {
         Log.i(killed ? "Alarm killed" : "Alarm dismissed by user");
         // The service told us that the alarm has been killed, do not modify
         // the notification or stop the service.
-        if (!killed) {
-            // Cancel the notification and stop playing the alarm
-            NotificationManager nm = getNotificationManager();
-            nm.cancel(mAlarm.id);
-            stopService(new Intent(Alarms.ALARM_ALERT_ACTION));
-        }
-        finish();
+		if (!mMathModule) {
+            if (!killed) {
+               // Cancel the notification and stop playing the alarm
+               NotificationManager nm = getNotificationManager();
+               nm.cancel(mAlarm.id);
+               stopService(new Intent(Alarms.ALARM_ALERT_ACTION));
+            }
+		} else {
+			Intent i = new Intent(this, AlarmMath.class);
+			i.putExtra(Alarms.ALARM_INTENT_EXTRA, mAlarm);
+			i.putExtra(SCREEN_OFF, true);
+			startActivity(i);
+		}
+		finish();
     }
 
     private void attachOrientationListener() {

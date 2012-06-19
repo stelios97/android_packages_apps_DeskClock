@@ -50,6 +50,8 @@ public class SettingsActivity extends PreferenceActivity
             "auto_silence";
     static final String KEY_FLIP_ACTION =
             "flip_action";
+	static final String KEY_MATH_MODULE = 
+	        "math_module";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

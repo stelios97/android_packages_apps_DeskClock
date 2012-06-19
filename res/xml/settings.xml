@@ -18,6 +18,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/settings">
 
+	<CheckBoxPreference
+        android:key="math_module"
+        android:defaultValue="false"
+        android:summary="@string/math_summary"
+        android:title="@string/math_title" />
+	
     <CheckBoxPreference
         android:key="alarm_in_silent_mode"
         android:title="@string/alarm_in_silent_mode_title"

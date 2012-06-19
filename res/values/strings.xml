@@ -327,7 +327,10 @@
 
     <!-- Label on the main screen control used to set alarm when there is already an existing alarm [CHAR LIMIT=30]-->
     <string name="control_set_alarm_with_existing">Alarm set: <xliff:g id="time">%s</xliff:g></string>
-
+	
+    <string name="math_title">Math quiz</string>
+    <string name="math_summary">Solve a math quiz to stop the Alarm</string>
+    <string name="math_dialog">Are you awake?</string>
 </resources>
 
 
